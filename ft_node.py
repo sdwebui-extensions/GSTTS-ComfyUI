@@ -19,7 +19,10 @@ from GSTTS_tools.slicer2 import Slicer
 from faster_whisper import WhisperModel
 from huggingface_hub import snapshot_download
 from transformers import AutoModelForMaskedLM, AutoTokenizer
-snapshot_download(repo_id="lj1995/GPT-SoVITS",local_dir=models_dir)
+if os.path.exists("/stable-diffusion-cache/huggingface/lj1995/GPT-SoVITS"):
+    models_dir = "/stable-diffusion-cache/huggingface/lj1995/GPT-SoVITS"
+else:
+    snapshot_download(repo_id="lj1995/GPT-SoVITS",local_dir=models_dir)
 pretrained_sovits_name=["gsv-v2final-pretrained/s2G2333k.pth", "s2G488k.pth"]
 pretrained_gpt_name=["gsv-v2final-pretrained/s1bert25hz-5kh-longer-epoch=12-step=369668.ckpt","s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"]
 
@@ -139,8 +142,11 @@ class ASRNode:
         if not config["if_redataset"]: return (output_file_path,)
         shutil.rmtree(output_file_path,ignore_errors=True)
         os.makedirs(output_folder,exist_ok=True)
-        model_path = os.path.join(models_dir,f"faster-whisper-{model_size}")
-        snapshot_download(repo_id=f"Systran/faster-whisper-{model_size}",local_dir=model_path)
+        if os.path.exists("/stable-diffusion-cache/huggingface/Systran/faster-whisper-large-v3"):
+            model_path = "/stable-diffusion-cache/huggingface/Systran/faster-whisper-large-v3"
+        else:
+            model_path = os.path.join(models_dir,f"faster-whisper-{model_size}")
+            snapshot_download(repo_id=f"Systran/faster-whisper-{model_size}",local_dir=model_path)
         
         if language == 'auto':
             language = None #不设置语种由模型自动输出概率最高的语种
