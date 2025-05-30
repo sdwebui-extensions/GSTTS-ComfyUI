@@ -15,7 +15,7 @@ import torchaudio
 import numpy as np
 from tqdm import tqdm
 from scipy.io import wavfile
-from tools.slicer2 import Slicer
+from GSTTS_tools.slicer2 import Slicer
 from faster_whisper import WhisperModel
 from huggingface_hub import snapshot_download
 from transformers import AutoModelForMaskedLM, AutoTokenizer
@@ -188,13 +188,12 @@ class ASRNode:
         return (output_file_path, )
         
 
-sys.path.append(gsv_path)
 import librosa
 from GPT_SoVITS import utils
-from tools.my_utils import load_audio
-from text.cleaner import clean_text 
-from feature_extractor import cnhubert 
-from module.models import SynthesizerTrn
+from GSTTS_tools.my_utils import load_audio
+from GPT_SoVITS.text.cleaner import clean_text 
+from GPT_SoVITS.feature_extractor import cnhubert 
+from GPT_SoVITS.module.models import SynthesizerTrn
 
 class DatasetNode:
     @classmethod

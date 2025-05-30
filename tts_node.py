@@ -4,8 +4,7 @@ from .ft_node import SoVITS_weight_root,GPT_weight_root,\
         now_dir,gsv_path,models_dir,output_dir
 
 sys.path.append(now_dir)
-sys.path.append(gsv_path)
-from tools.i18n.i18n import I18nAuto, scan_language_list
+from GSTTS_tools.i18n.i18n import I18nAuto, scan_language_list
 
 language=os.environ.get("language","Auto")
 language=sys.argv[-1] if sys.argv[-1] in scan_language_list() else language
@@ -58,7 +57,7 @@ from time import time as ttime
 import cuda_malloc
 device = "cuda" if cuda_malloc.cuda_malloc_supported() else "cpu"
 
-from module.models import SynthesizerTrn
+from GPT_SoVITS.module.models import SynthesizerTrn
 splits = {"，", "。", "？", "！", ",", ".", "?", "!", "~", ":", "：", "—", "…", }
 
 
@@ -131,7 +130,7 @@ def change_sovits_weights(sovits_path):
         data["SoVITS"][version]=sovits_path
     with open("./weight.json","w")as f:f.write(json.dumps(data))
     '''
-from AR.models.t2s_lightning_module import Text2SemanticLightningModule
+from GPT_SoVITS.AR.models.t2s_lightning_module import Text2SemanticLightningModule
 
 def change_gpt_weights(gpt_path):
     global hz, max_sec, t2s_model, config
@@ -165,11 +164,11 @@ def process_text(texts):
             _text.append(text)
     return _text
 
-from text import chinese,cleaned_text_to_sequence
-from text.cleaner import clean_text
+from GPT_SoVITS.text import chinese,cleaned_text_to_sequence
+from GPT_SoVITS.text.cleaner import clean_text
 import LangSegment
-from module.mel_processing import spectrogram_torch
-from tools.my_utils import load_audio
+from GPT_SoVITS.module.mel_processing import spectrogram_torch
+from GSTTS_tools.my_utils import load_audio
 
 def get_spepc(hps, audio):
     # audio = load_audio(filename, int(hps.data.sampling_rate))
@@ -585,7 +584,7 @@ class TextDictNode:
 
 prompt_sr = 32000
 import torchaudio
-from feature_extractor import cnhubert
+from GPT_SoVITS.feature_extractor import cnhubert
 from transformers import AutoModelForMaskedLM, AutoTokenizer
 
 class GSVTTSNode:
@@ -704,7 +703,7 @@ import srt
 import datetime
 import traceback
 import folder_paths
-from tools.slicer2 import Slicer
+from GSTTS_tools.slicer2 import Slicer
 from faster_whisper import WhisperModel
 from huggingface_hub import snapshot_download
 input_dir = folder_paths.get_input_directory()
