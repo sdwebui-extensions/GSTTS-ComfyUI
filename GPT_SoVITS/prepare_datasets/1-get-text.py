@@ -17,10 +17,10 @@ import sys, numpy as np, traceback, pdb
 import os.path
 from glob import glob
 from tqdm import tqdm
-from text.cleaner import clean_text
+from GPT_SoVITS.text.cleaner import clean_text
 from transformers import AutoModelForMaskedLM, AutoTokenizer
 import numpy as np
-from tools.my_utils import clean_path
+from GSTTS_tools.my_utils import clean_path
 
 # inp_text=sys.argv[1]
 # inp_wav_dir=sys.argv[2]
