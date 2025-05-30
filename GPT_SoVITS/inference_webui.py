@@ -298,7 +298,7 @@ def get_first(text):
     text = re.split(pattern, text)[0].strip()
     return text
 
-from text import chinese
+from GPT_SoVITS.text import chinese
 def get_phones_and_bert(text,language,version):
     if language in {"en", "all_zh", "all_ja", "all_ko", "all_yue"}:
         language = language.replace("all_","")
