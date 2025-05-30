@@ -16,14 +16,13 @@ import multiprocessing
 import sys, pdb
 
 now_dir = os.getcwd()
-sys.path.append(now_dir)
 from random import shuffle
 import torch.multiprocessing as mp
 from glob import glob
 from tqdm import tqdm
 import logging, librosa, utils
-from module.models import SynthesizerTrn
-from tools.my_utils import clean_path
+from GPT_SoVITS.module.models import SynthesizerTrn
+from GSTTS_tools.my_utils import clean_path
 logging.getLogger("numba").setLevel(logging.WARNING)
 # from config import pretrained_s2G
 
