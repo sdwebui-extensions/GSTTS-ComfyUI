@@ -545,9 +545,11 @@ class ExperienceNode:
             "if_ft_gpt": if_ft_gpt
         }
         return (res,)
-
-gpu_mem = int(torch.cuda.get_device_properties(0).total_memory/ 1024/ 1024/ 1024+ 0.4)
-default_batch_size = gpu_mem // 2
+try:
+    gpu_mem = int(torch.cuda.get_device_properties(0).total_memory/ 1024/ 1024/ 1024+ 0.4)
+    default_batch_size = gpu_mem // 2
+except:
+    default_batch_size = 1
 class ConfigSoVITSNode:
     @classmethod
     def INPUT_TYPES(s):
